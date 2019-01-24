@@ -126,8 +126,9 @@ class BehaviorTree(object):
                 break
 
         # - close nodes
-        for i in range(len(last_open_nodes)-1, start-1, -1):
-            last_open_nodes[i]._close(tick);
+        if curr_open_nodes: # Only close nodes if any running from previous tick.
+            for i in range(len(last_open_nodes)-1, start-1, -1):
+                last_open_nodes[i]._close(tick)
 
         # Populate blackboard
         blackboard.set('open_nodes', curr_open_nodes, self.id)
